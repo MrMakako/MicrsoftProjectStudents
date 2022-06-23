@@ -81,6 +81,43 @@ void Nodo::agregarTarea(String^ _nombre, DateTime^ _FechaInicial, DateTime^ _Fec
 	throw gcnew System::NotImplementedException();
 }
 
-void Nodo::deleteTarea() {
+bool Nodo::deleteTarea(String^ _taskname) {
+	if (estaVacio()) {
+		return false;
+	}
+	Nodo^ actual = primNodo;
+
+	do {
+		if (actual->getNombre() == _taskname) {
+			if (actual == primNodo && actual == ultiNodo) {
+				primNodo = ultiNodo = nullptr;
+			}
+			if (actual == primNodo) {
+				primNodo = actual->getSucesor();
+				primNodo->setPredecesor(ultiNodo);
+				ultiNodo->setSucesor(primNodo);
+			}
+			else if (actual == ultiNodo) {
+				ultiNodo = actual->getPredecesor();
+				ultiNodo->setSucesor(primNodo);
+				primNodo->setPredecesor(ultiNodo);
+			}
+			else {
+				Nodo^ anterior;
+				actual->getSucesor()->setPredecesor(actual->getPredecesor());
+				actual->getPredecesor()->setSucesor(actual->getSucesor());
+			}
+			delete actual;
+			return true;
+		}
+		actual = actual->getSucesor();
+	} while (actual != ultiNodo);
 	throw gcnew System::NotImplementedException();
+}
+
+bool Nodo::editarFechas(String^ _taskname) {
+	if (estaVacio()) {
+		return false;
+	}
+	return true;
 }

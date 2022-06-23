@@ -33,6 +33,7 @@ public:
 	//Metodos
 	void agregarTarea(String^, DateTime^, DateTime^);
 	bool estaVacio();
-	void deleteTarea();
+	bool deleteTarea(String^);
+	bool editarFechas(String^);
 };
 

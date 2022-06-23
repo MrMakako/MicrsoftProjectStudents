@@ -8,31 +8,31 @@ ref class Nodo
 
 protected:
 	DateTime^ FechaInicial;
-
 	DateTime^ FechaFinal;
-
-
-
 	String^ Nombre;
-
-	Nodo ^Predecesor;
+	Nodo^ Predecesor;
 	Nodo^ Sucesor;
-
-
-	
-
+	Nodo^ primNodo;
+	Nodo^ ultiNodo;
 
 public:
-
-		
 	Nodo();
-	Nodo(String^ _nombre, Nodo^ _Predecesor, Nodo^ _NodoSucesor,DateTime^_FechaInicial,DateTime^ _FechaFinal);
-
-
-
-
-
-
-
+	Nodo(String^, Nodo^, Nodo^, DateTime^, DateTime^);
+	//Getters
+	String^ getNombre();
+	Nodo^ getPredecesor();
+	Nodo^ getSucesor();
+	DateTime^ getFechaInicial();
+	DateTime^ getFechaFinal();
+	//Setters
+	void setNombre(String^);
+	void setPredecesor(Nodo^);
+	void setSucesor(Nodo^);
+	void setFechaInicial(DateTime^);
+	void setFechaFinal(DateTime^);
+	//Metodos
+	void agregarTarea(String^, DateTime^, DateTime^);
+	bool estaVacio();
+	void deleteTarea();
 };
 

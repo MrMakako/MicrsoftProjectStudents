@@ -58,9 +58,9 @@ namespace MicrsoftProject {
 		{
 			this->button1 = (gcnew System::Windows::Forms::Button());
 			this->dataGridView1 = (gcnew System::Windows::Forms::DataGridView());
-			this->tableLayoutPanel1 = (gcnew System::Windows::Forms::TableLayoutPanel());
 			this->Nombre = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->Fecha = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->tableLayoutPanel1 = (gcnew System::Windows::Forms::TableLayoutPanel());
 			this->button2 = (gcnew System::Windows::Forms::Button());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView1))->BeginInit();
 			this->SuspendLayout();
@@ -88,6 +88,20 @@ namespace MicrsoftProject {
 			this->dataGridView1->Size = System::Drawing::Size(407, 308);
 			this->dataGridView1->TabIndex = 1;
 			// 
+			// Nombre
+			// 
+			this->Nombre->HeaderText = L"Column1";
+			this->Nombre->MinimumWidth = 6;
+			this->Nombre->Name = L"Nombre";
+			this->Nombre->Width = 125;
+			// 
+			// Fecha
+			// 
+			this->Fecha->HeaderText = L"Column1";
+			this->Fecha->MinimumWidth = 6;
+			this->Fecha->Name = L"Fecha";
+			this->Fecha->Width = 125;
+			// 
 			// tableLayoutPanel1
 			// 
 			this->tableLayoutPanel1->ColumnCount = 2;
@@ -103,20 +117,6 @@ namespace MicrsoftProject {
 			this->tableLayoutPanel1->Size = System::Drawing::Size(257, 290);
 			this->tableLayoutPanel1->TabIndex = 2;
 			// 
-			// Nombre
-			// 
-			this->Nombre->HeaderText = L"Column1";
-			this->Nombre->MinimumWidth = 6;
-			this->Nombre->Name = L"Nombre";
-			this->Nombre->Width = 125;
-			// 
-			// Fecha
-			// 
-			this->Fecha->HeaderText = L"Column1";
-			this->Fecha->MinimumWidth = 6;
-			this->Fecha->Name = L"Fecha";
-			this->Fecha->Width = 125;
-			// 
 			// button2
 			// 
 			this->button2->Location = System::Drawing::Point(389, 420);
@@ -125,6 +125,7 @@ namespace MicrsoftProject {
 			this->button2->TabIndex = 3;
 			this->button2->Text = L"button2";
 			this->button2->UseVisualStyleBackColor = true;
+			this->button2->Click += gcnew System::EventHandler(this, &MyForm::button2_Click);
 			// 
 			// MyForm
 			// 
@@ -142,5 +143,7 @@ namespace MicrsoftProject {
 
 		}
 #pragma endregion
-	};
+	private: System::Void button2_Click(System::Object^ sender, System::EventArgs^ e) {
+	}
+};
 }

@@ -12,7 +12,7 @@ Nodo::Nodo(String^ _nombre, Nodo^ _Predecesor, Nodo^ _NodoSucesor, DateTime^ _Fe
 	Sucesor = _NodoSucesor;
 	FechaFinal = _FechaFinal;
 	FechaInicial = _FechaInicial;
-	throw gcnew System::NotImplementedException();
+	
 }
 
 void Nodo::setNombre(String^ _nombre)
@@ -27,6 +27,14 @@ void Nodo::setSucesor(Nodo^ _sucesor)
 
 void Nodo::setFechaFinal(DateTime^ _finaldate) {
 	this->FechaFinal = _finaldate;
+}
+
+Nodo^ Nodo::getPrimerNodo()
+{
+
+	return primNodo;
+
+	// // O: insert return statement here
 }
 
 void Nodo::setFechaInicial(DateTime^ _initdate) {
@@ -65,6 +73,9 @@ bool Nodo::estaVacio() {
 
 void Nodo::agregarTarea(String^ _nombre, DateTime^ _FechaInicial, DateTime^ _FechaFinal) {
 	Nodo^ tarea = gcnew Nodo(_nombre, nullptr, nullptr, _FechaInicial, _FechaFinal);
+
+
+
 	if (estaVacio()) {
 		primNodo = tarea;
 		primNodo->setPredecesor(nullptr);
@@ -73,12 +84,20 @@ void Nodo::agregarTarea(String^ _nombre, DateTime^ _FechaInicial, DateTime^ _Fec
 	else {
 		Nodo^ actual = primNodo;
 		while (actual->getSucesor() != nullptr) {
+			
 			actual = actual->getSucesor();
+			
+
+
+
 		}
 		actual->setSucesor(tarea);
+
 		tarea->setPredecesor(actual);
+
+
 	}
-	throw gcnew System::NotImplementedException();
+	
 }
 
 bool Nodo::deleteTarea(String^ _taskname) {
@@ -112,7 +131,7 @@ bool Nodo::deleteTarea(String^ _taskname) {
 		}
 		actual = actual->getSucesor();
 	} while (actual != ultiNodo);
-	throw gcnew System::NotImplementedException();
+	
 }
 
 bool Nodo::editarFechas(String^ _taskname) {
@@ -121,3 +140,10 @@ bool Nodo::editarFechas(String^ _taskname) {
 	}
 	return true;
 }
+
+void Nodo::setNumero(int num)
+{
+	Numero = num;
+}
+
+

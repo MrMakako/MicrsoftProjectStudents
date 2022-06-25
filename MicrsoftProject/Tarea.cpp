@@ -15,6 +15,13 @@ Tarea::Tarea(String^ _Nombre, DateTime^ _FechaIncial, DateTime^ _FechaFinal, Nod
     Predecesor = _Predecesor;
     Sucesor = _Sucesor;
     throw gcnew System::NotImplementedException();
+
+
+
+
+
+
 }
+
 
 

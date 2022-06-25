@@ -9,7 +9,7 @@ ref class Tarea:public Nodo
 
 
 
-
+	int Numero=0;
 
 public:
 

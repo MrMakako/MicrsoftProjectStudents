@@ -1,5 +1,8 @@
 #pragma once
 #include "MyForm.h"
+#include  "Tabla.h"
+#include "Tarea.h"
+#include "Nodo.h"
 namespace MicrsoftProject {
 
 	using namespace System;
@@ -15,9 +18,24 @@ namespace MicrsoftProject {
 	public ref class MyForm : public System::Windows::Forms::Form
 	{
 	public:
+		Tabla^ TablaProyecto;
+	private: System::Windows::Forms::TextBox^ ProyectName;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ column5;
+	public:
+	public:
+
+	private: System::Windows::Forms::DateTimePicker^ FehcaFinals;
+	public:
+
+	private: System::Windows::Forms::TextBox^ textBox2;
+	private: System::Windows::Forms::MaskedTextBox^ maskedTextBox1;
+	   bool InicioProyecto;
+
+	public:
 		MyForm(void)
 		{
 			InitializeComponent();
+			InicioProyecto = false;
 			//
 			//TODO: Add the constructor code here
 			//
@@ -34,12 +52,16 @@ namespace MicrsoftProject {
 				delete components;
 			}
 		}
-	private: System::Windows::Forms::Button^ button1;
-	private: System::Windows::Forms::DataGridView^ dataGridView1;
+	private: System::Windows::Forms::Button^ BotonIniciar;
+	private: System::Windows::Forms::DataGridView^ TablaTiempo;
+	protected:	private: System::Windows::Forms::Button^ button2;
+	private: System::Windows::Forms::DateTimePicker^ SelectorFecha;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ Nombre;
+	private: System::Windows::Forms::DateTimePicker^ FechaInicialS;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ Fecha;
-	private: System::Windows::Forms::TableLayoutPanel^ tableLayoutPanel1;
-	private: System::Windows::Forms::Button^ button2;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ Column3;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ Column4;
+
 
 	protected:
 
@@ -56,70 +78,77 @@ namespace MicrsoftProject {
 		/// </summary>
 		void InitializeComponent(void)
 		{
-			this->button1 = (gcnew System::Windows::Forms::Button());
-			this->dataGridView1 = (gcnew System::Windows::Forms::DataGridView());
+			this->BotonIniciar = (gcnew System::Windows::Forms::Button());
+			this->TablaTiempo = (gcnew System::Windows::Forms::DataGridView());
 			this->Nombre = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->Fecha = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->tableLayoutPanel1 = (gcnew System::Windows::Forms::TableLayoutPanel());
+			this->Column3 = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->Column4 = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->button2 = (gcnew System::Windows::Forms::Button());
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView1))->BeginInit();
+			this->FechaInicialS = (gcnew System::Windows::Forms::DateTimePicker());
+			this->ProyectName = (gcnew System::Windows::Forms::TextBox());
+			this->FehcaFinals = (gcnew System::Windows::Forms::DateTimePicker());
+			this->textBox2 = (gcnew System::Windows::Forms::TextBox());
+			this->maskedTextBox1 = (gcnew System::Windows::Forms::MaskedTextBox());
+			this->column5 = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->TablaTiempo))->BeginInit();
 			this->SuspendLayout();
 			// 
-			// button1
+			// BotonIniciar
 			// 
-			this->button1->Location = System::Drawing::Point(502, 420);
-			this->button1->Name = L"button1";
-			this->button1->Size = System::Drawing::Size(176, 41);
-			this->button1->TabIndex = 0;
-			this->button1->Text = L"button1";
-			this->button1->UseVisualStyleBackColor = true;
+			this->BotonIniciar->Location = System::Drawing::Point(873, 159);
+			this->BotonIniciar->Name = L"BotonIniciar";
+			this->BotonIniciar->Size = System::Drawing::Size(176, 41);
+			this->BotonIniciar->TabIndex = 0;
+			this->BotonIniciar->Text = L"Iniciar";
+			this->BotonIniciar->UseVisualStyleBackColor = true;
+			this->BotonIniciar->Click += gcnew System::EventHandler(this, &MyForm::BotonIniciar_Click);
 			// 
-			// dataGridView1
+			// TablaTiempo
 			// 
-			this->dataGridView1->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
-			this->dataGridView1->Columns->AddRange(gcnew cli::array< System::Windows::Forms::DataGridViewColumn^  >(2) {
-				this->Nombre,
-					this->Fecha
+			this->TablaTiempo->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
+			this->TablaTiempo->Columns->AddRange(gcnew cli::array< System::Windows::Forms::DataGridViewColumn^  >(5) {
+				this->Nombre, this->Fecha,
+					this->Column3, this->Column4, this->column5
 			});
-			this->dataGridView1->Location = System::Drawing::Point(41, 41);
-			this->dataGridView1->Name = L"dataGridView1";
-			this->dataGridView1->RowHeadersWidth = 51;
-			this->dataGridView1->RowTemplate->Height = 24;
-			this->dataGridView1->Size = System::Drawing::Size(407, 308);
-			this->dataGridView1->TabIndex = 1;
+			this->TablaTiempo->Location = System::Drawing::Point(48, 39);
+			this->TablaTiempo->Name = L"TablaTiempo";
+			this->TablaTiempo->RowHeadersWidth = 51;
+			this->TablaTiempo->RowTemplate->Height = 24;
+			this->TablaTiempo->Size = System::Drawing::Size(656, 308);
+			this->TablaTiempo->TabIndex = 1;
 			// 
 			// Nombre
 			// 
-			this->Nombre->HeaderText = L"Column1";
+			this->Nombre->HeaderText = L"Nombre";
 			this->Nombre->MinimumWidth = 6;
 			this->Nombre->Name = L"Nombre";
 			this->Nombre->Width = 125;
 			// 
 			// Fecha
 			// 
-			this->Fecha->HeaderText = L"Column1";
+			this->Fecha->HeaderText = L"FechaInicial";
 			this->Fecha->MinimumWidth = 6;
 			this->Fecha->Name = L"Fecha";
 			this->Fecha->Width = 125;
 			// 
-			// tableLayoutPanel1
+			// Column3
 			// 
-			this->tableLayoutPanel1->ColumnCount = 2;
-			this->tableLayoutPanel1->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle(System::Windows::Forms::SizeType::Percent,
-				50)));
-			this->tableLayoutPanel1->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle(System::Windows::Forms::SizeType::Percent,
-				50)));
-			this->tableLayoutPanel1->Location = System::Drawing::Point(471, 41);
-			this->tableLayoutPanel1->Name = L"tableLayoutPanel1";
-			this->tableLayoutPanel1->RowCount = 2;
-			this->tableLayoutPanel1->RowStyles->Add((gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Percent, 50)));
-			this->tableLayoutPanel1->RowStyles->Add((gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Percent, 50)));
-			this->tableLayoutPanel1->Size = System::Drawing::Size(257, 290);
-			this->tableLayoutPanel1->TabIndex = 2;
+			this->Column3->HeaderText = L"FechaFinal";
+			this->Column3->MinimumWidth = 6;
+			this->Column3->Name = L"Column3";
+			this->Column3->Width = 125;
+			// 
+			// Column4
+			// 
+			this->Column4->HeaderText = L"Predecesor";
+			this->Column4->MinimumWidth = 6;
+			this->Column4->Name = L"Column4";
+			this->Column4->Width = 125;
 			// 
 			// button2
 			// 
-			this->button2->Location = System::Drawing::Point(389, 420);
+			this->button2->Location = System::Drawing::Point(914, 206);
 			this->button2->Name = L"button2";
 			this->button2->Size = System::Drawing::Size(107, 41);
 			this->button2->TabIndex = 3;
@@ -127,23 +156,137 @@ namespace MicrsoftProject {
 			this->button2->UseVisualStyleBackColor = true;
 			this->button2->Click += gcnew System::EventHandler(this, &MyForm::button2_Click);
 			// 
+			// FechaInicialS
+			// 
+			this->FechaInicialS->Location = System::Drawing::Point(873, 46);
+			this->FechaInicialS->Name = L"FechaInicialS";
+			this->FechaInicialS->Size = System::Drawing::Size(273, 22);
+			this->FechaInicialS->TabIndex = 4;
+			this->FechaInicialS->ValueChanged += gcnew System::EventHandler(this, &MyForm::dateTimePicker1_ValueChanged);
+			// 
+			// ProyectName
+			// 
+			this->ProyectName->Location = System::Drawing::Point(839, 131);
+			this->ProyectName->Name = L"ProyectName";
+			this->ProyectName->Size = System::Drawing::Size(260, 22);
+			this->ProyectName->TabIndex = 5;
+			this->ProyectName->Text = L"Default Proyect";
+			// 
+			// FehcaFinals
+			// 
+			this->FehcaFinals->Location = System::Drawing::Point(873, 89);
+			this->FehcaFinals->Name = L"FehcaFinals";
+			this->FehcaFinals->Size = System::Drawing::Size(269, 22);
+			this->FehcaFinals->TabIndex = 6;
+			// 
+			// textBox2
+			// 
+			this->textBox2->Location = System::Drawing::Point(771, 46);
+			this->textBox2->Name = L"textBox2";
+			this->textBox2->Size = System::Drawing::Size(78, 22);
+			this->textBox2->TabIndex = 7;
+			this->textBox2->Text = L"Fecha Inicial";
+			this->textBox2->TextChanged += gcnew System::EventHandler(this, &MyForm::textBox2_TextChanged);
+			// 
+			// maskedTextBox1
+			// 
+			this->maskedTextBox1->Location = System::Drawing::Point(771, 89);
+			this->maskedTextBox1->Name = L"maskedTextBox1";
+			this->maskedTextBox1->Size = System::Drawing::Size(80, 22);
+			this->maskedTextBox1->TabIndex = 8;
+			this->maskedTextBox1->Text = L"Fecha Final";
+			// 
+			// column5
+			// 
+			this->column5->HeaderText = L"Dias";
+			this->column5->MinimumWidth = 6;
+			this->column5->Name = L"column5";
+			this->column5->Width = 125;
+			// 
 			// MyForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(822, 473);
+			this->ClientSize = System::Drawing::Size(1158, 409);
+			this->Controls->Add(this->maskedTextBox1);
+			this->Controls->Add(this->textBox2);
+			this->Controls->Add(this->FehcaFinals);
+			this->Controls->Add(this->ProyectName);
+			this->Controls->Add(this->FechaInicialS);
 			this->Controls->Add(this->button2);
-			this->Controls->Add(this->tableLayoutPanel1);
-			this->Controls->Add(this->dataGridView1);
-			this->Controls->Add(this->button1);
+			this->Controls->Add(this->TablaTiempo);
+			this->Controls->Add(this->BotonIniciar);
 			this->Name = L"MyForm";
 			this->Text = L"MyForm";
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView1))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->TablaTiempo))->EndInit();
 			this->ResumeLayout(false);
+			this->PerformLayout();
 
 		}
 #pragma endregion
 	private: System::Void button2_Click(System::Object^ sender, System::EventArgs^ e) {
+
+
+
+
+
+
+
 	}
+private: System::Void dateTimePicker1_ValueChanged(System::Object^ sender, System::EventArgs^ e) {
+}
+private: System::Void BotonIniciar_Click(System::Object^ sender, System::EventArgs^ e) {
+
+
+	if (InicioProyecto == false) {
+
+		TablaProyecto = gcnew Tabla(ProyectName->ToString(), FechaInicialS->Value,FehcaFinals->Value);
+		
+		TablaTiempo->Rows->Add(1);
+
+		Nodo^ Inicio= TablaProyecto->getNodoInicil();
+		Inicio = Inicio->getPrimerNodo();
+		//Nodo^ Tarea = Inicio->getSucesor();
+		int count = 1;
+		TablaTiempo->Rows[0]->Cells[0]->Value = "Inicio";
+		TablaTiempo->Rows[0]->Cells[1]->Value = FechaInicialS->Value.ToString("d");
+		TablaTiempo->Rows[0]->Cells[2]->Value = FehcaFinals->Value.ToString("d");
+		TablaTiempo->Rows[0]->Cells[4]->Value = "0";
+
+		while (Inicio!=nullptr) {
+
+
+
+			TablaTiempo->Rows->Add(1);
+			TablaTiempo->Rows[count]->Cells[0]->Value = Inicio->getNombre()->ToString();
+			TablaTiempo->Rows[count]->Cells[1]->Value = Inicio->getFechaInicial()->ToString("d");
+			TablaTiempo->Rows[count]->Cells[2]->Value = Inicio->getFechaFinal()->ToString("d");
+			TablaTiempo->Rows[count]->Cells[4]->Value = "1";
+
+
+			Inicio = Inicio->getSucesor();
+			count++;
+		
+		
+		}
+			
+		
+	
+
+
+
+	
+	}
+
+	
+
+
+
+
+
+
+}
+private: System::Void textBox2_TextChanged(System::Object^ sender, System::EventArgs^ e) {
+}
 };
 }

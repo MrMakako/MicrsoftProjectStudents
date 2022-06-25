@@ -14,6 +14,7 @@ protected:
 	Nodo^ Sucesor;
 	Nodo^ primNodo;
 	Nodo^ ultiNodo;
+	int Numero = 0;
 
 public:
 	Nodo();
@@ -28,8 +29,10 @@ public:
 	void setNombre(String^);
 	void setPredecesor(Nodo^);
 	void setSucesor(Nodo^);
+	void setNumero(int num);
 	void setFechaInicial(DateTime^);
 	void setFechaFinal(DateTime^);
+	Nodo^ getPrimerNodo();
 	//Metodos
 	void agregarTarea(String^, DateTime^, DateTime^);
 	bool estaVacio();

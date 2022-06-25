@@ -21,12 +21,14 @@ public:
 	Nodo(String^, Nodo^, Nodo^, DateTime^, DateTime^);
 	//Getters
 	String^ getNombre();
+	int getDias();
 	Nodo^ getPredecesor();
 	Nodo^ getSucesor();
 	DateTime^ getFechaInicial();
 	DateTime^ getFechaFinal();
 	//Setters
 	void setNombre(String^);
+	int getNumero();
 	void setPredecesor(Nodo^);
 	void setSucesor(Nodo^);
 	void setNumero(int num);
@@ -34,7 +36,7 @@ public:
 	void setFechaFinal(DateTime^);
 	Nodo^ getPrimerNodo();
 	//Metodos
-	void agregarTarea(String^, DateTime^, DateTime^);
+	void agregarTarea(String^, DateTime^, DateTime^,int);
 	bool estaVacio();
 	bool deleteTarea(String^);
 	bool editarFechas(String^);

@@ -20,6 +20,11 @@ void Nodo::setNombre(String^ _nombre)
 	this->Nombre = _nombre;
 }
 
+int Nodo::getNumero()
+{
+	return Numero;
+}
+
 void Nodo::setSucesor(Nodo^ _sucesor)
 {
 	this->Sucesor = _sucesor;
@@ -59,6 +64,11 @@ String^ Nodo::getNombre()
 	return Nombre;
 }
 
+int Nodo::getDias()
+{
+	return FechaFinal->Day-FechaInicial->Day+1;
+}
+
 Nodo^ Nodo::getPredecesor() {
 	return Predecesor;
 }
@@ -69,10 +79,13 @@ Nodo^ Nodo::getSucesor() {
 
 bool Nodo::estaVacio() {
 	return primNodo == nullptr;
-}
 
-void Nodo::agregarTarea(String^ _nombre, DateTime^ _FechaInicial, DateTime^ _FechaFinal) {
+
+}	
+
+void Nodo::agregarTarea(String^ _nombre, DateTime^ _FechaInicial, DateTime^ _FechaFinal,int numero) {
 	Nodo^ tarea = gcnew Nodo(_nombre, nullptr, nullptr, _FechaInicial, _FechaFinal);
+	tarea->setNumero(numero);
 
 
 

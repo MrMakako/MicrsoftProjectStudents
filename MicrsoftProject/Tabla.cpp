@@ -6,18 +6,31 @@ Tabla::Tabla(String^ _Nombre, DateTime^ _FechaInicial, DateTime^ _FechaFinal)
     FechaFinal = _FechaFinal;
     FechaInicial = _FechaInicial;
 
-    int diasTotal = FechaFinal->Day - FechaInicial->Day;
+    int diasTotal = FechaFinal->DayOfYear- FechaInicial->DayOfYear;
     String^ Nombre = "Tarea";
-    int diaInicial=FechaInicial->Day;
-    int diaFinal=FechaFinal->Day;
+    int cantidadDias = 0;
+    int diaFinal = 0;
 
 
 
     Inicial = gcnew Nodo("Inicio", nullptr, nullptr, FechaInicial, FechaFinal);
-    for (int i = 1; i <= diasTotal; i++) {
-        Inicial->agregarTarea("Tarea" , DateTime::Now.AddDays(diaInicial), DateTime::Now.AddDays(diaInicial + 1));
+    for (int i = 0; i <= diasTotal; i++) {
 
-        diaInicial ++;
+ 
+        if (i > 1) {
+            Inicial->agregarTarea(("Tarea ") + (i+1), FechaInicial->AddDays(cantidadDias), FechaInicial->AddDays(diaFinal), i+1);
+          
+        }
+        else {
+            Inicial->agregarTarea(("Tarea ") + (i+1), FechaInicial->AddDays(cantidadDias), FechaInicial->AddDays(cantidadDias), i+1);
+        
+        }
+        
+       
+
+
+        cantidadDias ++;
+        diaFinal++;
     
     }
    
@@ -35,3 +48,51 @@ Nodo^ Tabla::getNodoInicil()
     return Inicial;
     // // O: insert return statement here
 }
+
+void Tabla::ActualizarDuracion(int num)
+{
+   
+
+   
+    if (Inicial->estaVacio()) {
+    
+        return;
+    
+    }
+
+
+
+    Nodo^ Actual = Inicial->getPrimerNodo();
+
+    do {
+
+
+        if(Actual->getNumero())
+
+
+
+        Actual = Actual->getSucesor();
+
+
+
+
+
+
+    
+    
+    
+    }while(Actual!=nullptr)
+
+
+
+
+
+
+
+
+
+
+
+}
+
+

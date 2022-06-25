@@ -24,6 +24,17 @@ public:
 	Tabla (String^ Nombre, DateTime^ _FechaInicial, DateTime^ _FechaFinal);
 	Nodo^ getNodoInicil();
 
+	void ActualizarDuracion(int num);
+
+
+
+
+
+
+
+
+
+
 
 
 

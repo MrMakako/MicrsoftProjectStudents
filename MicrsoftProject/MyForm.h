@@ -485,7 +485,7 @@ private: System::Void ActualizarBtn_Click(System::Object^ sender, System::EventA
 
 		Inicio = Inicio->getSucesor();
 		count++;
-	
+	//
 
 
 	}

@@ -14,6 +14,7 @@ Tabla::Tabla(String^ _Nombre, DateTime^ _FechaInicial, DateTime^ _FechaFinal)
 
 
     Inicial = gcnew Nodo("Inicio", nullptr, nullptr, FechaInicial, FechaFinal);
+    
     for (int i = 0; i <= diasTotal; i++) {
 
  
@@ -22,6 +23,7 @@ Tabla::Tabla(String^ _Nombre, DateTime^ _FechaInicial, DateTime^ _FechaFinal)
           
         }
         else {
+
             Inicial->agregarTarea(("Tarea ") + (i+1), FechaInicial->AddDays(cantidadDias), FechaInicial->AddDays(cantidadDias), i+1);
         
         }

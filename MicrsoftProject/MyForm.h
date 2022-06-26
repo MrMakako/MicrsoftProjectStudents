@@ -20,6 +20,7 @@ namespace MicrsoftProject {
 	public:
 		Tabla^ TablaProyecto;
 		int UltimaFila = 0;
+		DateTime^ FechaInicialGuardada = nullptr;
 	private: System::Windows::Forms::TextBox^ ProyectName;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ column5;
 	public:
@@ -94,13 +95,13 @@ namespace MicrsoftProject {
 			this->Column3 = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->Column4 = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->column5 = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->Column1 = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->FechaInicialS = (gcnew System::Windows::Forms::DateTimePicker());
 			this->ProyectName = (gcnew System::Windows::Forms::TextBox());
 			this->FehcaFinals = (gcnew System::Windows::Forms::DateTimePicker());
 			this->textBox2 = (gcnew System::Windows::Forms::TextBox());
 			this->maskedTextBox1 = (gcnew System::Windows::Forms::MaskedTextBox());
 			this->ActualizarBtn = (gcnew System::Windows::Forms::Button());
-			this->Column1 = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->TablaTiempo))->BeginInit();
 			this->SuspendLayout();
 			// 
@@ -164,6 +165,13 @@ namespace MicrsoftProject {
 			this->column5->Name = L"column5";
 			this->column5->Width = 125;
 			// 
+			// Column1
+			// 
+			this->Column1->HeaderText = L"Numero";
+			this->Column1->MinimumWidth = 6;
+			this->Column1->Name = L"Column1";
+			this->Column1->Width = 125;
+			// 
 			// FechaInicialS
 			// 
 			this->FechaInicialS->Location = System::Drawing::Point(1034, 52);
@@ -206,20 +214,13 @@ namespace MicrsoftProject {
 			// 
 			// ActualizarBtn
 			// 
-			this->ActualizarBtn->Location = System::Drawing::Point(1027, 240);
+			this->ActualizarBtn->Location = System::Drawing::Point(1034, 212);
 			this->ActualizarBtn->Name = L"ActualizarBtn";
 			this->ActualizarBtn->Size = System::Drawing::Size(182, 60);
 			this->ActualizarBtn->TabIndex = 9;
 			this->ActualizarBtn->Text = L"Actualizar";
 			this->ActualizarBtn->UseVisualStyleBackColor = true;
 			this->ActualizarBtn->Click += gcnew System::EventHandler(this, &MyForm::ActualizarBtn_Click);
-			// 
-			// Column1
-			// 
-			this->Column1->HeaderText = L"Numero";
-			this->Column1->MinimumWidth = 6;
-			this->Column1->Name = L"Column1";
-			this->Column1->Width = 125;
 			// 
 			// MyForm
 			// 
@@ -236,13 +237,88 @@ namespace MicrsoftProject {
 			this->Controls->Add(this->BotonIniciar);
 			this->Name = L"MyForm";
 			this->Text = L"MyForm";
+			this->Load += gcnew System::EventHandler(this, &MyForm::MyForm_Load);
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->TablaTiempo))->EndInit();
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
 		}
 
+		void ActualizarFechas() {
+		
+			int count = 1;
 
+			Nodo^ Inicio = TablaProyecto->getNodoInicil()->getPrimerNodo();
+
+			TablaTiempo->Rows[0]->Cells[0]->Value = ProyectName->Text;
+			TablaTiempo->Rows[0]->Cells[1]->Value = FechaInicialS->Value.ToString("d");
+			TablaTiempo->Rows[0]->Cells[2]->Value = TablaProyecto->getFechaFinal()->ToString("d");
+			TablaTiempo->Rows[0]->Cells[4]->Value = "0";
+			TablaTiempo->Rows[0]->Cells[5]->Value = "0";
+			while (Inicio != nullptr) {
+
+
+
+				TablaTiempo->Rows[count]->Cells[0]->Value = Inicio->getNombre()->ToString();
+				TablaTiempo->Rows[count]->Cells[1]->Value = Inicio->getFechaInicial()->ToString("d");
+				TablaTiempo->Rows[count]->Cells[2]->Value = Inicio->getFechaFinal()->ToString("d");
+				TablaTiempo->Rows[count]->Cells[5]->Value = Inicio->getNumero();
+				if (Inicio != TablaProyecto->getNodoInicil()->getPrimerNodo()) {
+					//	TablaTiempo->Rows[count]->Cells[3]->Value = Inicio->getPredecesor()->getNumero();
+
+				}
+				else {
+					//TablaTiempo->Rows[count]->Cells[3]->Value = 0;
+
+
+				}
+				TablaTiempo->Rows[count]->Cells[4]->Value = Inicio->getDias();
+
+
+				Inicio = Inicio->getSucesor();
+				count++;
+				//
+
+
+			}
+
+
+			int Rows = TablaTiempo->RowCount - 1;
+			Nodo^ ActualC = TablaProyecto->getNodoInicil()->getPrimerNodo();
+
+			Nodo^ Mayor = TablaProyecto->getNodoInicil()->getPrimerNodo()->getPredecesor();
+			for (int i = 1; i < count; i++) {
+
+
+
+				if (Mayor != nullptr && ActualC != nullptr) {
+
+
+
+
+					if (Mayor->getFechaFinal()->CompareTo(ActualC->getFechaFinal())) {
+						Mayor = ActualC;
+
+					}
+
+					ActualC = ActualC->getSucesor();
+
+
+				}
+
+
+			}
+			if (Mayor != nullptr) {
+
+
+
+
+				TablaTiempo->Rows[0]->Cells[2]->Value = Mayor->getFechaFinal()->ToString("d");
+
+			}
+		
+		
+		}
 		void OrdenarPredecesores() {
 			
 
@@ -378,8 +454,7 @@ private: System::Void BotonIniciar_Click(System::Object^ sender, System::EventAr
 
 
 
-	
-
+		FechaInicialGuardada = DateTime::Parse(TablaTiempo->Rows[0]->Cells[1]->Value->ToString());
 
 
 	
@@ -454,81 +529,42 @@ private: System::Void ActualizarBtn_Click(System::Object^ sender, System::EventA
 	}
 
     OrdenarPredecesores();
-	int count = 1;
+	OrdenarPredecesores();
 
-	Nodo^ Inicio= TablaProyecto->getNodoInicil()->getPrimerNodo();
-
-	TablaTiempo->Rows[0]->Cells[0]->Value = ProyectName->Text;
-	TablaTiempo->Rows[0]->Cells[1]->Value = FechaInicialS->Value.ToString("d");
-	TablaTiempo->Rows[0]->Cells[2]->Value = TablaProyecto->getFechaFinal()->ToString("d");
-	TablaTiempo->Rows[0]->Cells[4]->Value = "0";
-	TablaTiempo->Rows[0]->Cells[5]->Value = "0";
-	while (Inicio!= nullptr) {
-
-
-
-		TablaTiempo->Rows[count]->Cells[0]->Value = Inicio->getNombre()->ToString();
-		TablaTiempo->Rows[count]->Cells[1]->Value = Inicio->getFechaInicial()->ToString("d");
-		TablaTiempo->Rows[count]->Cells[2]->Value = Inicio->getFechaFinal()->ToString("d");
-		TablaTiempo->Rows[count]->Cells[5]->Value = Inicio->getNumero();
-		if (Inicio != TablaProyecto->getNodoInicil()->getPrimerNodo()) {
-		//	TablaTiempo->Rows[count]->Cells[3]->Value = Inicio->getPredecesor()->getNumero();
-
-		}
-		else {
-			//TablaTiempo->Rows[count]->Cells[3]->Value = 0;
-
-
-		}
-		TablaTiempo->Rows[count]->Cells[4]->Value = Inicio->getDias();
-
-
-		Inicio = Inicio->getSucesor();
-		count++;
-	//
-
-
-	}
-
+	/// <summary>
+	/// /Se corre la fecha
+	/// </summary>
+	DateTime^ NuevaFecha=DateTime::Parse(TablaTiempo->Rows[0]->Cells[1]->Value->ToString());;
 	
-	int Rows = TablaTiempo->RowCount-1;
-	Nodo^ ActualC = TablaProyecto->getNodoInicil()->getPrimerNodo();
+	if (NuevaFecha->CompareTo(FechaInicialGuardada)==1) {
+		int dias = NuevaFecha->DayOfYear-FechaInicialGuardada->DayOfYear-1;
 
-	Nodo^ Mayor =TablaProyecto->getNodoInicil()->getPrimerNodo()->getPredecesor();
-	for (int i = 1; i < count;i++) {
+		Nodo^ Actual = TablaProyecto->getNodoInicil()->getPrimerNodo();
 
+		MessageBox::Show("Se esta cmabiando la fecha");
+		while (Actual != nullptr) {
+		
+			
+			Actual->setFechaFinal(Actual->getFechaFinal()->AddDays(dias));
+
+			Actual->setFechaInicial(Actual->getFechaInicial()->AddDays(dias));
+
+			Actual = Actual->getSucesor();
 		
 
-		if (Mayor != nullptr && ActualC != nullptr) {
 
 
-			
-
-			if (Mayor->getFechaFinal()->CompareTo(ActualC->getFechaFinal())) {
-				Mayor = ActualC;
-
-			}
-
-			ActualC = ActualC->getSucesor();
-
-
+		
 		}
-
-
-	}
-	if (Mayor != nullptr) {
-
-
-
 	
-		TablaTiempo->Rows[0]->Cells[2]->Value = Mayor->getFechaFinal()->ToString("d");
 	
 	}
 
+	ActualizarFechas();
+	FechaInicialGuardada = DateTime::Parse(TablaTiempo->Rows[0]->Cells[1]->Value->ToString());
 
-
-
-
+}
+private: System::Void MyForm_Load(System::Object^ sender, System::EventArgs^ e) {
 }
 };
 }

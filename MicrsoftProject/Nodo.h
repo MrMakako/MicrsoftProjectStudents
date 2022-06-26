@@ -1,5 +1,6 @@
 #pragma once
 
+using namespace System::Windows::Forms;
 
 using namespace System;
 
@@ -29,6 +30,7 @@ public:
 	//Setters
 	void setNombre(String^);
 	int getNumero();
+	int getPredecesorNum();
 	void setPredecesor(Nodo^);
 	void setSucesor(Nodo^);
 	void setNumero(int num);
@@ -39,6 +41,7 @@ public:
 	void agregarTarea(String^, DateTime^, DateTime^,int);
 	bool estaVacio();
 	bool deleteTarea(String^);
-	bool editarFechas(String^);
+	Nodo^ editFecha(int _taskNum);
+
 };
 

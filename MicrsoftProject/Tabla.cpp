@@ -81,7 +81,7 @@ void Tabla::ActualizarDuracion(int num)
     
     
     
-    }while(Actual!=nullptr)
+    } while (Actual != nullptr);
 
 
 
@@ -90,6 +90,29 @@ void Tabla::ActualizarDuracion(int num)
 
 
 
+
+
+
+}
+
+DateTime^ Tabla::getFechaFinal()
+{
+    return FechaFinal;
+    // // O: insert return statement here
+}
+
+DateTime^ Tabla::getFechaInicial()
+{
+
+   return FechaInicial;
+    // // O: insert return statement here
+}
+
+void Tabla::setFechaFinal(DateTime^ time)
+{
+    
+
+    FechaFinal = time;
 
 
 

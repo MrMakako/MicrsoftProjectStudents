@@ -25,6 +25,11 @@ int Nodo::getNumero()
 	return Numero;
 }
 
+int Nodo::getPredecesorNum()
+{
+	return Predecesor->getNumero();
+}
+
 void Nodo::setSucesor(Nodo^ _sucesor)
 {
 	this->Sucesor = _sucesor;
@@ -66,7 +71,7 @@ String^ Nodo::getNombre()
 
 int Nodo::getDias()
 {
-	return FechaFinal->Day-FechaInicial->Day+1;
+	return FechaFinal->DayOfYear-FechaInicial->DayOfYear+1;
 }
 
 Nodo^ Nodo::getPredecesor() {
@@ -127,6 +132,7 @@ bool Nodo::deleteTarea(String^ _taskname) {
 			if (actual == primNodo) {
 				primNodo = actual->getSucesor();
 				primNodo->setPredecesor(ultiNodo);
+
 				ultiNodo->setSucesor(primNodo);
 			}
 			else if (actual == ultiNodo) {
@@ -147,13 +153,21 @@ bool Nodo::deleteTarea(String^ _taskname) {
 	
 }
 
-bool Nodo::editarFechas(String^ _taskname) {
+Nodo^ Nodo::editFecha(int _taskNum) {
 	if (estaVacio()) {
-		return false;
+		return nullptr;
 	}
-	return true;
-}
+	Nodo^ actual =primNodo ;
+	while (actual != nullptr) {
+		if (actual->getNumero() == _taskNum) {
 
+			return actual;
+		}
+		actual = actual->getSucesor();
+	}
+
+	return nullptr;
+}
 void Nodo::setNumero(int num)
 {
 	Numero = num;

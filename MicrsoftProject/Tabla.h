@@ -25,8 +25,10 @@ public:
 	Nodo^ getNodoInicil();
 
 	void ActualizarDuracion(int num);
+	DateTime^ getFechaFinal();
+	DateTime^ getFechaInicial();
 
-
+	void setFechaFinal(DateTime^ time);
 
 
 
